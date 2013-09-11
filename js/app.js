@@ -12,12 +12,11 @@ $(document).ready(function(){
 
     getMessages();
     $("#send").click(function(){
-        var username = $('input[name=username]').attr('value');
-        var message =  $('input[name=message]').attr('value');
+        var username = $('#username').val();
+        var message =  $('#message').val();
         console.log(username) ;
-        console.log('!');
         $.ajax({
-            url:'https://api.parse.com/1/classes/MessageBoard',
+            url:'https://api.parse.com/1/classes/Chat',
             headers: {
                 'X-Parse-Application-ID':
                     parseID,
@@ -53,7 +52,7 @@ $(document).ready(function(){
 
 function getMessages(){
     $.ajax({
-        url:'https://api.parse.com/1/classes/MessageBoard',
+        url:'https://api.parse.com/1/classes/Chat',
         headers:{
             'X-Parse-Application-Id':
                 parseID,
@@ -74,10 +73,10 @@ function getMessages(){
 
 
 }
-function updateView(){
+function updateView(messages){
     var table = $('.table tbody');
     table.html('');
-    $.each(messages.resuls, function(index, value){
+    $.each(messages.results, function(index, value){
         var trEl=$('<tr><td>'+value.username+'</td><td>'+value.message+'</td></tr>');
         table.append(trEl);
     });
